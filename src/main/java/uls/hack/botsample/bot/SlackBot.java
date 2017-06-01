@@ -8,13 +8,17 @@ import me.ramswaroop.jbot.core.slack.models.Message;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import uls.hack.botsample.cognitive.CognitiveService;
+import uls.hack.botsample.cognitive.ocr.OCR.OCRResult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketSession;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.util.regex.Matcher;
 
@@ -40,6 +44,9 @@ public class SlackBot extends Bot { /* Bot継承必須 */
      */
     @Value("${slackBotToken}")
     private String slackToken;
+    
+    @Autowired
+    private CognitiveService service;
 
     @Override
     public String getSlackToken() {
@@ -92,6 +99,7 @@ public class SlackBot extends Bot { /* Bot継承必須 */
     	
     }
     
+    /** ファイルアップロード通知かどうか。 */
     private boolean isFileUploadMessage(Event event) {
     	return event.getText().matches(".*uploaded a file: <https://.+\\.slack\\.com/files.*");
     }
@@ -117,8 +125,8 @@ public class SlackBot extends Bot { /* Bot継承必須 */
         logger.info("File shared: {}", event);
         
     }
-    // ただし、ファイルアップロードが終わった後のメッセージを受け取ることができるので、そこを契機にリプライできる。
-    public void onFileUploaded(WebSocketSession ses, Event event) throws Exception{
+    // ファイルアップロードが終わった後のメッセージを受け取ることができるので、そこを契機にリプライできる。
+    private void onFileUploaded(WebSocketSession ses, Event event) throws Exception{
 
     	if(!event.getFile().getMimetype().toLowerCase().contains("image")) {
     		return;
@@ -134,11 +142,14 @@ public class SlackBot extends Bot { /* Bot継承必須 */
     		return;
     	}
     	String name = event.getFile().getId() + "." + event.getFile().getFiletype();
-    	try(FileOutputStream fos = new FileOutputStream("c:/tmp/" +name)){
+    	File file = new File("/tmp/" + name); 
+    	try(FileOutputStream fos = new FileOutputStream(file)){
     	    fos.write(response.body().bytes());
-
             logger.info("saved File;" + name);
     	}
+    	
+    	OCRResult ocr = service.recognizeText(file);
+    	reply(ses, event, new Message("ひょっとして、\"" + ocr.toString() +"\"って書いてある?"));
     	
     }
 

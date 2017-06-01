@@ -18,5 +18,11 @@ slackbot + cognative
 
 + 通常の spring boot と同様。
 
+## cognitive serviceの準備
 
+https://azure.microsoft.com/ja-jp/try/cognitive-services/
+あたりで、Azure アカウントを作成して、サブスクリプションキーを作成する。
+サブスクリプションキーを application.propertiesに書いておく。
+
+API document は [ここ](https://docs.microsoft.com/ja-jp/azure/cognitive-services/)を見る。
 
