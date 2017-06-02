@@ -33,6 +33,8 @@ API document は [ここ](https://docs.microsoft.com/ja-jp/azure/cognitive-services
 Intent 作成後、学習を行いアプリを公開して準備完了。
 実行には、キーとapp-id が必要なので控えておく。
 
+## LICENSE
 
+ASL2
 
 

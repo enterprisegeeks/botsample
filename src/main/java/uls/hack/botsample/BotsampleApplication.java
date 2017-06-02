@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
+import uls.hack.botsample.cognitive.luis.Luis;
 import uls.hack.botsample.cognitive.ocr.OCR;
 
 @SpringBootApplication(scanBasePackages = {"me.ramswaroop.jbot", "uls.hack.botsample"})
@@ -28,5 +29,16 @@ public class BotsampleApplication {
 			    .addConverterFactory(factory)
 			    .build();
 		return retrofit.create(OCR.class);
+	}
+
+	@Bean
+	public Luis luis(@Value("${luis.endpoint}") String endpoint) {
+
+        JacksonConverterFactory factory = JacksonConverterFactory.create(new ObjectMapper());
+		Retrofit retrofit = new Retrofit.Builder()
+			    .baseUrl(endpoint)
+			    .addConverterFactory(factory)
+			    .build();
+		return retrofit.create(Luis.class);
 	}
 }

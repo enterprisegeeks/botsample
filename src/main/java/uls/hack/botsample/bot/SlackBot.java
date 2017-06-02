@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import uls.hack.botsample.cognitive.CognitiveService;
+import uls.hack.botsample.cognitive.luis.Luis.LuisResult;
 import uls.hack.botsample.cognitive.ocr.OCR.OCRResult;
 
 import org.slf4j.Logger;
@@ -21,6 +22,7 @@ import org.springframework.web.socket.WebSocketSession;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.regex.Matcher;
+import java.util.stream.Collectors;
 
 /**
  *  SlackBotサンプル。
@@ -72,14 +74,15 @@ public class SlackBot extends Bot { /* Bot継承必須 */
     	// eventから、メッセージ内容などを取得できる。
     	// slackServiceは Botクラスのフィールド、Botの設定に関する色々な情報を取得できる。自分の取得以外にはあまり使わないだろう。
     	logger.info("onReceiveDM:"+ event);
-        reply(session, event, new Message("私の名前は、" + slackService.getCurrentUser().getName()+ "です。" 
-        			+ event.getText() + "じゃないよ。"));
+        reply(session, event, new Message("何かつぶやいてみて、何のこといっているか当ててみるから。"));
+        reply(session, event, new Message("(xxxx)っていうとget wild ごっこができます。"));
+        reply(session, event, new Message("画像をアップロードすると、画像内の文字を読んでみるよ"));
     }
 
     /**
      * EventType.MESSAGEは誰かが何かを言ったときに発生するイベント。
      * patternを使用して、正規表現に合致した場合だけ、このメソッドを実行するようなことができる。
-     *　今回はカッコで始まらない発言を全て取得する。
+     *　今回はカッコで始まらない発言を全て取得し、LUISで意図を判定してみる。
      * matcher を引数に取ると、パターンの一部を取得可能。
      *
      * @param session
@@ -94,7 +97,22 @@ public class SlackBot extends Bot { /* Bot継承必須 */
     	} else {
         	String text = matcher.group(0);
         	logger.info("onReceiveMessage:"+ event);
-            reply(session, event, new Message(text + "って言った?"));
+        	LuisResult res = service.getIntent(text);
+        	
+        	if (res == null || res.topScoringIntent == null) {
+
+            	String message = "ちょっと何言ってるかわからない。";
+                reply(session, event, new Message(message));
+        	} else {
+
+            	String intent = res.topScoringIntent.intent;
+            	String entities = res.entities.stream()
+            				.map(e -> e.entity).collect(Collectors.joining());
+            	String message = "ひょっとして" + intent + "のこと言ってる?" + 
+            				(entities.isEmpty() ? "" : " " + entities + "っていいよね");
+                reply(session, event, new Message(message));
+        	}
+        	
     	}
     	
     }
