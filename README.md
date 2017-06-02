@@ -26,3 +26,13 @@ https://azure.microsoft.com/ja-jp/try/cognitive-services/
 
 API document は [ここ](https://docs.microsoft.com/ja-jp/azure/cognitive-services/)を見る。
 
+## LUIS 
+
+[ここ](https://www.luis.ai/) からスタート。
+適当にアプリを作成し、 Intentをいくつか作っておく。
+Intent 作成後、学習を行いアプリを公開して準備完了。
+実行には、キーとapp-id が必要なので控えておく。
+
+
+
+
