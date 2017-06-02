@@ -5,12 +5,12 @@ import java.io.File;
 import uls.hack.botsample.cognitive.luis.Luis.LuisResult;
 import uls.hack.botsample.cognitive.ocr.OCR.OCRResult;
 
-/** Cognitive‚ğg—p‚µ‚½ƒT[ƒrƒX */
+/** Cognitiveã‚’ä½¿ç”¨ã—ãŸã‚µãƒ¼ãƒ“ã‚¹ */
 public interface CognitiveService {
 
-	/** ‰æ‘œƒtƒ@ƒCƒ‹“à‚ÌƒeƒLƒXƒg‚ğ‰ğÍ‚·‚é */
+	/** ç”»åƒãƒ•ã‚¡ã‚¤ãƒ«å†…ã®ãƒ†ã‚­ã‚¹ãƒˆã‚’è§£æã™ã‚‹ */
 	OCRResult recognizeText(File file);
 	
-	/** ˆÓ}•ªÍ‚ğs‚¤ */
+	/** æ„å›³åˆ†æã‚’è¡Œã† */
 	LuisResult getIntent(String query);
 }

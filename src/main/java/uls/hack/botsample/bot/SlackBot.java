@@ -25,18 +25,18 @@ import java.util.regex.Matcher;
 import java.util.stream.Collectors;
 
 /**
- *  SlackBotƒTƒ“ƒvƒ‹B
+ *  SlackBotã‚µãƒ³ãƒ—ãƒ«ã€‚
  *  
- *  https://my.slack.com/services/new/bot ‚É‚Ä
- *  slackbot ‚ğì¬‚µ‚Äƒg[ƒNƒ“‚ğæ“¾‚µAapplication.properties‚Éƒg[ƒNƒ“‚ğ‘‚¢‚Ä‚¨‚«‚Ü‚·B
+ *  https://my.slack.com/services/new/bot ã«ã¦
+ *  slackbot ã‚’ä½œæˆã—ã¦ãƒˆãƒ¼ã‚¯ãƒ³ã‚’å–å¾—ã—ã€application.propertiesã«ãƒˆãƒ¼ã‚¯ãƒ³ã‚’æ›¸ã„ã¦ãŠãã¾ã™ã€‚
  *  
- *  @Contoroler ƒAƒmƒe[ƒVƒ‡ƒ“(Spring MVC‚Æ‚Í•Ê‚Å‚·) ‚Ì‘®«‚Ìİ’è‚É‚æ‚Á‚ÄA—lX‚È‰ï˜bƒpƒ^[ƒ“‚É‰‚¶‚½”½‰‚ğs‚¤‚±‚Æ‚ª‚Å‚«‚Ü‚·B
- *  —á‚¦‚ÎA–¼w‚µ‚ÌƒƒbƒZ[ƒWA”CˆÓ‚Ì³‹K•\Œ»‚ÌƒƒbƒZ[ƒWAƒsƒ“•t‚¯‚â‰æ‘œ“\‚è•t‚¯‚È‚Ç‚ª‚ ‚è‚Ü‚·B
- *  ‚Ü‚½A“Á’è‚ÌƒL[ƒ[ƒh‚É‚æ‚èAƒJƒ“ƒoƒZ[ƒVƒ‡ƒ“‚Æ‚¢‚¤•¡”‚Ì‰ï˜b‚ğs‚¤‹@”\‚à’ñ‹Ÿ‚³‚ê‚Ü‚·B
+ *  @Contoroler ã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³(Spring MVCã¨ã¯åˆ¥ã§ã™) ã®å±æ€§ã®è¨­å®šã«ã‚ˆã£ã¦ã€æ§˜ã€…ãªä¼šè©±ãƒ‘ã‚¿ãƒ¼ãƒ³ã«å¿œã˜ãŸåå¿œã‚’è¡Œã†ã“ã¨ãŒã§ãã¾ã™ã€‚
+ *  ä¾‹ãˆã°ã€åæŒ‡ã—ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã€ä»»æ„ã®æ­£è¦è¡¨ç¾ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã€ãƒ”ãƒ³ä»˜ã‘ã‚„ç”»åƒè²¼ã‚Šä»˜ã‘ãªã©ãŒã‚ã‚Šã¾ã™ã€‚
+ *  ã¾ãŸã€ç‰¹å®šã®ã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰ã«ã‚ˆã‚Šã€ã‚«ãƒ³ãƒã‚»ãƒ¼ã‚·ãƒ§ãƒ³ã¨ã„ã†è¤‡æ•°ã®ä¼šè©±ã‚’è¡Œã†æ©Ÿèƒ½ã‚‚æä¾›ã•ã‚Œã¾ã™ã€‚
  *  
  */
-@Component // ƒAƒmƒe[ƒVƒ‡ƒ“•K{
-public class SlackBot extends Bot { /* BotŒp³•K{ */
+@Component // ã‚¢ãƒãƒ†ãƒ¼ã‚·ãƒ§ãƒ³å¿…é ˆ
+public class SlackBot extends Bot { /* Botç¶™æ‰¿å¿…é ˆ */
 
     private static final Logger logger = LoggerFactory.getLogger(SlackBot.class);
 
@@ -61,29 +61,29 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
     }
 
     /**
-     *@DIRECT_MENTIONADIRECT_MESSAGE ‚ÍA
-     *@@ƒ{ƒbƒg–¼‚Å@–¼w‚µ‚Å”­Œ¾‚³‚ê‚½‚Æ‚«‚É‘Î‰‚·‚éƒCƒxƒ“ƒgB
+     *ã€€DIRECT_MENTIONã€DIRECT_MESSAGE ã¯ã€
+     *ã€€@ãƒœãƒƒãƒˆåã§ã€€åæŒ‡ã—ã§ç™ºè¨€ã•ã‚ŒãŸã¨ãã«å¯¾å¿œã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã€‚
      *
      * @param session
      * @param event
      */
     @Controller(events = {EventType.DIRECT_MENTION, EventType.DIRECT_MESSAGE})
     public void onReceiveDM(WebSocketSession session, Event event) {
-    	// session ‚ÍA Slack RTM API ‚Æ‚Ì˜AŒg‚Åg‚í‚ê‚é‚à‚Ì‚ÅA’ÊíJBOT©g‚ªŠÇ—‚·‚é‚à‚Ì‚ÅA‰ï˜b‚Ì‚â‚èæ‚è‚Åg—p‚·‚é‚±‚Æ‚Í–³‚¢B
-    	// reply ‚Å•Ô“š‚ğ•Ô‚·B
-    	// event‚©‚çAƒƒbƒZ[ƒW“à—e‚È‚Ç‚ğæ“¾‚Å‚«‚éB
-    	// slackService‚Í BotƒNƒ‰ƒX‚ÌƒtƒB[ƒ‹ƒhABot‚Ìİ’è‚ÉŠÖ‚·‚éFX‚Èî•ñ‚ğæ“¾‚Å‚«‚éB©•ª‚Ìæ“¾ˆÈŠO‚É‚Í‚ ‚Ü‚èg‚í‚È‚¢‚¾‚ë‚¤B
+    	// session ã¯ã€ Slack RTM API ã¨ã®é€£æºã§ä½¿ã‚ã‚Œã‚‹ã‚‚ã®ã§ã€é€šå¸¸JBOTè‡ªèº«ãŒç®¡ç†ã™ã‚‹ã‚‚ã®ã§ã€ä¼šè©±ã®ã‚„ã‚Šå–ã‚Šã§ä½¿ç”¨ã™ã‚‹ã“ã¨ã¯ç„¡ã„ã€‚
+    	// reply ã§è¿”ç­”ã‚’è¿”ã™ã€‚
+    	// eventã‹ã‚‰ã€ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸å†…å®¹ãªã©ã‚’å–å¾—ã§ãã‚‹ã€‚
+    	// slackServiceã¯ Botã‚¯ãƒ©ã‚¹ã®ãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã€Botã®è¨­å®šã«é–¢ã™ã‚‹è‰²ã€…ãªæƒ…å ±ã‚’å–å¾—ã§ãã‚‹ã€‚è‡ªåˆ†ã®å–å¾—ä»¥å¤–ã«ã¯ã‚ã¾ã‚Šä½¿ã‚ãªã„ã ã‚ã†ã€‚
     	logger.info("onReceiveDM:"+ event);
-        reply(session, event, new Message("‰½‚©‚Â‚Ô‚â‚¢‚Ä‚İ‚ÄA‰½‚Ì‚±‚Æ‚¢‚Á‚Ä‚¢‚é‚©“–‚Ä‚Ä‚İ‚é‚©‚çB"));
-        reply(session, event, new Message("(xxxx)‚Á‚Ä‚¢‚¤‚Æget wild ‚²‚Á‚±‚ª‚Å‚«‚Ü‚·B"));
-        reply(session, event, new Message("‰æ‘œ‚ğƒAƒbƒvƒ[ƒh‚·‚é‚ÆA‰æ‘œ“à‚Ì•¶š‚ğ“Ç‚ñ‚Å‚İ‚é‚æ"));
+        reply(session, event, new Message("ä½•ã‹ã¤ã¶ã‚„ã„ã¦ã¿ã¦ã€ä½•ã®ã“ã¨ã„ã£ã¦ã„ã‚‹ã‹å½“ã¦ã¦ã¿ã‚‹ã‹ã‚‰ã€‚"));
+        reply(session, event, new Message("(xxxx)ã£ã¦ã„ã†ã¨get wild ã”ã£ã“ãŒã§ãã¾ã™ã€‚"));
+        reply(session, event, new Message("ç”»åƒã‚’ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã™ã‚‹ã¨ã€ç”»åƒå†…ã®æ–‡å­—ã‚’èª­ã‚“ã§ã¿ã‚‹ã‚ˆ"));
     }
 
     /**
-     * EventType.MESSAGE‚Í’N‚©‚ª‰½‚©‚ğŒ¾‚Á‚½‚Æ‚«‚É”­¶‚·‚éƒCƒxƒ“ƒgB
-     * pattern‚ğg—p‚µ‚ÄA³‹K•\Œ»‚É‡’v‚µ‚½ê‡‚¾‚¯A‚±‚Ìƒƒ\ƒbƒh‚ğÀs‚·‚é‚æ‚¤‚È‚±‚Æ‚ª‚Å‚«‚éB
-     *@¡‰ñ‚ÍƒJƒbƒR‚Ån‚Ü‚ç‚È‚¢”­Œ¾‚ğ‘S‚Äæ“¾‚µALUIS‚ÅˆÓ}‚ğ”»’è‚µ‚Ä‚İ‚éB
-     * matcher ‚ğˆø”‚Éæ‚é‚ÆAƒpƒ^[ƒ“‚Ìˆê•”‚ğæ“¾‰Â”\B
+     * EventType.MESSAGEã¯èª°ã‹ãŒä½•ã‹ã‚’è¨€ã£ãŸã¨ãã«ç™ºç”Ÿã™ã‚‹ã‚¤ãƒ™ãƒ³ãƒˆã€‚
+     * patternã‚’ä½¿ç”¨ã—ã¦ã€æ­£è¦è¡¨ç¾ã«åˆè‡´ã—ãŸå ´åˆã ã‘ã€ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å®Ÿè¡Œã™ã‚‹ã‚ˆã†ãªã“ã¨ãŒã§ãã‚‹ã€‚
+     *ã€€ä»Šå›ã¯ã‚«ãƒƒã‚³ã§å§‹ã¾ã‚‰ãªã„ç™ºè¨€ã‚’å…¨ã¦å–å¾—ã—ã€LUISã§æ„å›³ã‚’åˆ¤å®šã—ã¦ã¿ã‚‹ã€‚
+     * matcher ã‚’å¼•æ•°ã«å–ã‚‹ã¨ã€ãƒ‘ã‚¿ãƒ¼ãƒ³ã®ä¸€éƒ¨ã‚’å–å¾—å¯èƒ½ã€‚
      *
      * @param session
      * @param event
@@ -92,7 +92,7 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
     @Controller(events = EventType.MESSAGE, pattern = "^[^(](.+)$")
     public void onReceiveMessage(WebSocketSession session, Event event, Matcher matcher) throws Exception {
     	if(isFileUploadMessage(event)) { 
-    		//ƒtƒ@ƒCƒ‹ƒAƒbƒvƒ[ƒh‚Ìê‡B ƒTƒuƒ^ƒCƒv‚É‚æ‚éevent‚Ì”»’è‚ª‚Å‚«‚ê‚ÎAƒƒ\ƒbƒh‚ğãè‚­•ª‚¯‚é‚±‚Æ‚ª‚Å‚«‚é‚Ì‚¾‚ªA¡‚Í‘Î‰‚µ‚Ä‚¢‚È‚¢‚½‚ßA‚±‚±‚Å•ªŠò‚³‚¹‚éB
+    		//ãƒ•ã‚¡ã‚¤ãƒ«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ã®å ´åˆã€‚ ã‚µãƒ–ã‚¿ã‚¤ãƒ—ã«ã‚ˆã‚‹eventã®åˆ¤å®šãŒã§ãã‚Œã°ã€ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä¸Šæ‰‹ãåˆ†ã‘ã‚‹ã“ã¨ãŒã§ãã‚‹ã®ã ãŒã€ä»Šã¯å¯¾å¿œã—ã¦ã„ãªã„ãŸã‚ã€ã“ã“ã§åˆ†å²ã•ã›ã‚‹ã€‚
     		onFileUploaded(session, event);
     	} else {
         	String text = matcher.group(0);
@@ -101,15 +101,15 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
         	
         	if (res == null || res.topScoringIntent == null) {
 
-            	String message = "‚¿‚å‚Á‚Æ‰½Œ¾‚Á‚Ä‚é‚©‚í‚©‚ç‚È‚¢B";
+            	String message = "ã¡ã‚‡ã£ã¨ä½•è¨€ã£ã¦ã‚‹ã‹ã‚ã‹ã‚‰ãªã„ã€‚";
                 reply(session, event, new Message(message));
         	} else {
 
             	String intent = res.topScoringIntent.intent;
             	String entities = res.entities.stream()
             				.map(e -> e.entity).collect(Collectors.joining());
-            	String message = "‚Ğ‚å‚Á‚Æ‚µ‚Ä" + intent + "‚Ì‚±‚ÆŒ¾‚Á‚Ä‚é?" + 
-            				(entities.isEmpty() ? "" : " " + entities + "‚Á‚Ä‚¢‚¢‚æ‚Ë");
+            	String message = "ã²ã‚‡ã£ã¨ã—ã¦" + intent + "ã®ã“ã¨è¨€ã£ã¦ã‚‹?" + 
+            				(entities.isEmpty() ? "" : " " + entities + "ã£ã¦ã„ã„ã‚ˆã­");
                 reply(session, event, new Message(message));
         	}
         	
@@ -117,16 +117,16 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
     	
     }
     
-    /** ƒtƒ@ƒCƒ‹ƒAƒbƒvƒ[ƒh’Ê’m‚©‚Ç‚¤‚©B */
+    /** ãƒ•ã‚¡ã‚¤ãƒ«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰é€šçŸ¥ã‹ã©ã†ã‹ã€‚ */
     private boolean isFileUploadMessage(Event event) {
     	return event.getText().matches(".*uploaded a file: <https://.+\\.slack\\.com/files.*");
     }
 
     /**
-     * ƒtƒ@ƒCƒ‹‚ª‹¤—L‚³‚ê‚½‚ÌƒCƒxƒ“ƒgB
+     * ãƒ•ã‚¡ã‚¤ãƒ«ãŒå…±æœ‰ã•ã‚ŒãŸæ™‚ã®ã‚¤ãƒ™ãƒ³ãƒˆã€‚
      * 
      * <a href="https://api.slack.com/events/file_shared">file_shared</a>
-     * ‚É‚ ‚é‚ªA‚±‚ÌƒCƒxƒ“ƒg‚Ì‚Æ‚«‚Í ƒ`ƒƒƒlƒ‹ID‚ª‚È‚¢‚½‚ßAreply ‚Å‚«‚È‚¢B
+     * ã«ã‚ã‚‹ãŒã€ã“ã®ã‚¤ãƒ™ãƒ³ãƒˆã®ã¨ãã¯ ãƒãƒ£ãƒãƒ«IDãŒãªã„ãŸã‚ã€reply ã§ããªã„ã€‚
      * 
      * Invoked when bot receives an event of type file shared.
      * NOTE: You can't reply to this event as slack doesn't send
@@ -139,11 +139,11 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
      */
     @Controller(events = EventType.FILE_SHARED)
     public void onFileShared(WebSocketSession session, Event event) {
-    	// ‚È‚º‚©2‰ñ”­¶‚·‚é
+    	// ãªãœã‹2å›ç™ºç”Ÿã™ã‚‹
         logger.info("File shared: {}", event);
         
     }
-    // ƒtƒ@ƒCƒ‹ƒAƒbƒvƒ[ƒh‚ªI‚í‚Á‚½Œã‚ÌƒƒbƒZ[ƒW‚ğó‚¯æ‚é‚±‚Æ‚ª‚Å‚«‚é‚Ì‚ÅA‚»‚±‚ğŒ_‹@‚ÉƒŠƒvƒ‰ƒC‚Å‚«‚éB
+    // ãƒ•ã‚¡ã‚¤ãƒ«ã‚¢ãƒƒãƒ—ãƒ­ãƒ¼ãƒ‰ãŒçµ‚ã‚ã£ãŸå¾Œã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å—ã‘å–ã‚‹ã“ã¨ãŒã§ãã‚‹ã®ã§ã€ãã“ã‚’å¥‘æ©Ÿã«ãƒªãƒ—ãƒ©ã‚¤ã§ãã‚‹ã€‚
     private void onFileUploaded(WebSocketSession ses, Event event) throws Exception{
 
     	if(!event.getFile().getMimetype().toLowerCase().contains("image")) {
@@ -152,7 +152,7 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
     	
     	OkHttpClient client = new OkHttpClient();
     	Request request = new Request.Builder().url(event.getFile().getUrlPrivateDownload())
-    			.addHeader("Authorization", "Bearer " + slackToken) // ‰æ‘œæ“¾‚Íƒg[ƒNƒ“•K—v
+    			.addHeader("Authorization", "Bearer " + slackToken) // ç”»åƒå–å¾—ã¯ãƒˆãƒ¼ã‚¯ãƒ³å¿…è¦
     			.build();
     	Response response = client.newCall(request).execute();
     	if (!response.isSuccessful()) {
@@ -167,39 +167,39 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
     	}
     	
     	OCRResult ocr = service.recognizeText(file);
-    	reply(ses, event, new Message("‚Ğ‚å‚Á‚Æ‚µ‚ÄA\"" + ocr.toString() +"\"‚Á‚Ä‘‚¢‚Ä‚ ‚é?"));
+    	reply(ses, event, new Message("ã²ã‚‡ã£ã¨ã—ã¦ã€\"" + ocr.toString() +"\"ã£ã¦æ›¸ã„ã¦ã‚ã‚‹?"));
     	
     }
 
     /**
-     * Conversation ‹@”\1B
+     * Conversation æ©Ÿèƒ½1ã€‚
      * 
-     * startConversation‚ÅAˆê˜A‚Ì‰ï˜b‚ğŠJn‚·‚éB
-     * ¡‰ñ‚ÍA (,,,,)‚ÆŒ¾‚¤‚Æ‰ï˜b”­¶B
+     * startConversationã§ã€ä¸€é€£ã®ä¼šè©±ã‚’é–‹å§‹ã™ã‚‹ã€‚
+     * ä»Šå›ã¯ã€ (,,,,)ã¨è¨€ã†ã¨ä¼šè©±ç™ºç”Ÿã€‚
      *
      * @param session
      * @param event
      */
     @Controller(pattern = "^[\\(].+[\\)]$")
     public void step1(WebSocketSession session, Event event) {
-        startConversation(event, "step2");   // conversation‚ÌŠJnBŸ‚ÌƒƒbƒZ[ƒW‚É”½‰‚·‚é‚Æ‚«‚ÍAstep2ƒƒ\ƒbƒh‚ğ—LŒø‚É‚·‚é‚æ‚¤‚É‚·‚éBE
-        reply(session, event, new Message("‰ï˜b‚ÌŠJn(step1.Wild‚ÆŒ¾‚Á‚Ä‚İ‚æ‚¤)BGet?  "));
+        startConversation(event, "step2");   // conversationã®é–‹å§‹ã€‚æ¬¡ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã«åå¿œã™ã‚‹ã¨ãã¯ã€step2ãƒ¡ã‚½ãƒƒãƒ‰ã‚’æœ‰åŠ¹ã«ã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚ãƒ»
+        reply(session, event, new Message("ä¼šè©±ã®é–‹å§‹(step1.Wildã¨è¨€ã£ã¦ã¿ã‚ˆã†)ã€‚Get?  "));
     }
 
     /**
-     * step1‚©‚ç‚Ì‘±‚«B
+     * step1ã‹ã‚‰ã®ç¶šãã€‚
      *
      * @param session
      * @param event
      */
-    @Controller(next = "step3") // next‚ÍnextConversationŒÄ‚Ño‚µ‚É”½‰‚·‚éƒƒ\ƒbƒhB
+    @Controller(next = "step3") // nextã¯nextConversationå‘¼ã³å‡ºã—ã«åå¿œã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã€‚
     public void step2(WebSocketSession session, Event event) {
     	if (event.getText().toLowerCase().contains("wild")) {
             reply(session, event, new Message("(step2) and ? "));
-            nextConversation(event);  // next‘®«‚Ìƒƒ\ƒbƒh‚ÅƒCƒxƒ“ƒg‚ğ‘Ò‚¿ó‚¯‚é‚æ‚¤‚É‚È‚éB
+            nextConversation(event);  // nextå±æ€§ã®ãƒ¡ã‚½ãƒƒãƒ‰ã§ã‚¤ãƒ™ãƒ³ãƒˆã‚’å¾…ã¡å—ã‘ã‚‹ã‚ˆã†ã«ãªã‚‹ã€‚
     	} else {
-            reply(session, event, new Message("(I—¹step2)"));
-    		stopConversation(event); // stopConversation‚Å‰ï˜bI—¹B
+            reply(session, event, new Message("(çµ‚äº†step2)"));
+    		stopConversation(event); // stopConversationã§ä¼šè©±çµ‚äº†ã€‚
     	}
     	
     }
@@ -213,10 +213,10 @@ public class SlackBot extends Bot { /* BotŒp³•K{ */
     @Controller()
     public void step3(WebSocketSession session, Event event) {
         if (event.getText().toLowerCase().contains("tough")) {
-            reply(session, event, new Message("‚Â‚¢‚½–²‚ğæ‚è–ß‚·‚æ(I—¹)"));
+            reply(session, event, new Message("å‚·ã¤ã„ãŸå¤¢ã‚’å–ã‚Šæˆ»ã™ã‚ˆ(çµ‚äº†)"));
             stopConversation(event);
         } else {
-            reply(session, event, new Message("(I—¹step3)"));
+            reply(session, event, new Message("(çµ‚äº†step3)"));
             stopConversation(event);
         }
     }

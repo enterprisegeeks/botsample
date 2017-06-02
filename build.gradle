@@ -20,7 +20,7 @@ sourceCompatibility = 1.8
 repositories {
 	mavenCentral()
 }
-
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-actuator')

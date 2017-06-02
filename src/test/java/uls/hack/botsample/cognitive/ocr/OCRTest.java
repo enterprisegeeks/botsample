@@ -24,7 +24,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 import uls.hack.botsample.LambdaCallback;
 import uls.hack.botsample.cognitive.ocr.OCR.OCRResult;
 
-/** ocr Ú‘±ƒeƒXƒg */
+/** ocr æ¥ç¶šãƒ†ã‚¹ãƒˆ */
 @Ignore
 public class OCRTest {
 	
@@ -40,7 +40,7 @@ public class OCRTest {
 			    .addConverterFactory(factory)
 			    .build();
 		target = retrofit.create(OCR.class);
-		// ƒL[‚Íƒtƒ@ƒCƒ‹‚©ƒVƒXƒeƒ€ƒvƒƒpƒeƒBŒo—R‚Åæ“¾‚·‚é
+		// ã‚­ãƒ¼ã¯ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚·ã‚¹ãƒ†ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£çµŒç”±ã§å–å¾—ã™ã‚‹
 		File f = new File("secret.txt");
 		if(f.exists()) {
 			try(FileReader r = new FileReader(f)) {
@@ -54,7 +54,7 @@ public class OCRTest {
 		}
 	}
 	
-	/** ƒTƒ“ƒvƒ‹‰æ‘œ‚ğg—p‚µ‚ÄA“ú–{ŒêƒeƒLƒXƒg‚ª“Ç‚ß‚é‚©ƒeƒXƒg‚·‚é */
+	/** ã‚µãƒ³ãƒ—ãƒ«ç”»åƒã‚’ä½¿ç”¨ã—ã¦ã€æ—¥æœ¬èªãƒ†ã‚­ã‚¹ãƒˆãŒèª­ã‚ã‚‹ã‹ãƒ†ã‚¹ãƒˆã™ã‚‹ */
 	@Test public void testReadJapaneseText() throws Exception {
 		try(InputStream img = getClass().getResourceAsStream("/ocrSample.jpg")) {
 			byte[] content = new byte[img.available()];
@@ -62,14 +62,14 @@ public class OCRTest {
 			RequestBody body = RequestBody.create(
 					MediaType.parse("application/octet-stream"), content);
 			OCRResult res = target.recognizeText(key, body).execute().body();
-			assertThat(res.toString()).contains("l‚Ì‹à‚Å").contains("Ä“÷‚ªH‚×‚½‚¢");
+			assertThat(res.toString()).contains("äººã®é‡‘ã§").contains("ç„¼è‚‰ãŒé£Ÿã¹ãŸã„");
 		}
 	}
 
-	/** ”ñ“¯ŠúƒŠƒNƒGƒXƒg‚ÌƒeƒXƒg */
+	/** éåŒæœŸãƒªã‚¯ã‚¨ã‚¹ãƒˆã®ãƒ†ã‚¹ãƒˆ */
 	@Test public void testReadJapaneseTextAsync() throws Exception {
 		
-		// ”ñ“¯ŠúÀs‚Ìê‡AƒŠƒNƒGƒXƒg‚ªI‚í‚é‘O‚ÉƒeƒXƒg‚ªI—¹‚·‚é‚½‚ßA‘Ò‹@‚³‚¹‚éB
+		// éåŒæœŸå®Ÿè¡Œã®å ´åˆã€ãƒªã‚¯ã‚¨ã‚¹ãƒˆãŒçµ‚ã‚ã‚‹å‰ã«ãƒ†ã‚¹ãƒˆãŒçµ‚äº†ã™ã‚‹ãŸã‚ã€å¾…æ©Ÿã•ã›ã‚‹ã€‚
 		CountDownLatch latch = new CountDownLatch(1);
 		
 		try(InputStream img = getClass().getResourceAsStream("/ocrSample.jpg")) {
@@ -82,7 +82,7 @@ public class OCRTest {
 			async.enqueue(LambdaCallback.callback((call, resp)->{
 				System.out.println("response async");
 				OCRResult res = resp.body();
-				assertThat(res.toString()).contains("l‚Ì‹à‚Å").contains("Ä“÷‚ªH‚×‚½‚¢");
+				assertThat(res.toString()).contains("äººã®é‡‘ã§").contains("ç„¼è‚‰ãŒé£Ÿã¹ãŸã„");
 				latch.countDown();
 			}));
 		}

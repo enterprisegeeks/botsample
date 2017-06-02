@@ -9,7 +9,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/** Computer vision OCR ‚Æ‚ÌÚ‘±‚ğs‚¤Retrofit Interface‚Å‚·B */
+/** Computer vision OCR ã¨ã®æ¥ç¶šã‚’è¡Œã†Retrofit Interfaceã§ã™ã€‚ */
 public interface Luis {
 	  @GET("{appid}?verbose=true&timezoneOffset=0") //?subscription-key=xxx&verbose=true&timezoneOffset=0&q=xxx
 	  @Headers({ "Accept: application/json"})
@@ -19,7 +19,7 @@ public interface Luis {
 			  @Query("q") String query); 
 	  
 	  /** 
-	   * LuisŒ‹‰Ê.
+	   * Luisçµæœ.
 	   */
 	  public static class LuisResult {
 		  public String query;

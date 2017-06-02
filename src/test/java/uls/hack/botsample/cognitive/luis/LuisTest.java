@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 import uls.hack.botsample.cognitive.luis.Luis.LuisResult;
 
-/** ocr Ú‘±ƒeƒXƒg */
+/** ocr æ¥ç¶šãƒ†ã‚¹ãƒˆ */
 @Ignore
 public class LuisTest {
 	
@@ -30,7 +30,7 @@ public class LuisTest {
 	
 	@Before public void prepare() throws IOException {
 		
-		// ƒL[‚Íƒtƒ@ƒCƒ‹‚©ƒVƒXƒeƒ€ƒvƒƒpƒeƒBŒo—R‚Åæ“¾‚·‚é
+		// ã‚­ãƒ¼ã¯ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚·ã‚¹ãƒ†ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£çµŒç”±ã§å–å¾—ã™ã‚‹
 		File f = new File("secret.txt");
 		String url;
 		if(f.exists()) {
@@ -55,16 +55,16 @@ public class LuisTest {
 		target = retrofit.create(Luis.class);
 	}
 	
-	/** ƒGƒ“ƒeƒBƒeƒB”F¯ƒeƒXƒg */
+	/** ã‚¨ãƒ³ãƒ†ã‚£ãƒ†ã‚£èªè­˜ãƒ†ã‚¹ãƒˆ */
 	@Test public void testLuis() throws Exception {
-		Response<LuisResult> res = target.query(appId, key, "ƒ‰[ƒƒ“H‚×‚½‚¢").execute();
+		Response<LuisResult> res = target.query(appId, key, "ãƒ©ãƒ¼ãƒ¡ãƒ³é£Ÿã¹ãŸã„").execute();
 		
 		if(res.isSuccessful()) {
 			LuisResult r = res.body();
 			System.out.println(r.topScoringIntent.intent);
 			System.out.println(r.entities.get(0).entity);
-			assertThat(r.topScoringIntent.intent).isEqualTo("‚¨‚È‚©‹ó‚¢‚½");
-			assertThat(r.entities.get(0).entity).isEqualTo("ƒ‰[ƒƒ“");
+			assertThat(r.topScoringIntent.intent).isEqualTo("ãŠãªã‹ç©ºã„ãŸ");
+			assertThat(r.entities.get(0).entity).isEqualTo("ãƒ©ãƒ¼ãƒ¡ãƒ³");
 		} else {
 			System.out.println(res.errorBody().string());
 			System.out.println(res.message());

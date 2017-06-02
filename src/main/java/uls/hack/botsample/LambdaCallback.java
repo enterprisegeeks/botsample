@@ -8,7 +8,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/** コールバック定義が面倒なので */
+/** 繧ｳ繝ｼ繝ｫ繝舌ャ繧ｯ螳夂ｾｩ縺碁擇蛟偵↑縺ｮ縺ｧ */
 public class LambdaCallback {
 	
 	public static <T> Callback<T> callback(BiConsumer<Call<T>, Response<T>> onResponse, 

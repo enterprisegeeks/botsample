@@ -1,37 +1,37 @@
 slackbot + cognative
 --------------------
 
-## �T�v
+## 概要
 
-[jBot](https://github.com/ramswaroop/jbot) �̃T���v�����Q�l�ɁAcognative�ƘA�g����T���v���ł��B
+[jBot](https://github.com/ramswaroop/jbot) のサンプルを参考に、cognativeと連携するサンプルです。
 
-�t���[�e�L�X�g�ł� LUIS �ƘA�g���Ă���Intent ��ԋp���܂��B
-�摜���A�b�v���[�h�����ꍇ�Acompute vision ���g�p���ĉ摜���̃e�L�X�g��ǂݍ��݁A���̌��ʂ�Ԃ��܂��B
+フリーテキストでは LUIS と連携してそのIntent を返却します。
+画像をアップロードした場合、compute vision を使用して画像内のテキストを読み込み、その結果を返します。
 
-## ���O����
+## 事前準備
 
-+ Slack bot �̍쐬�ƁAtoken�̎擾
-+ LUIS �A�v���̍쐬�AURL�Ȃǂ� application.properties �ɏ������ށB
-+ compute vision �A�v�����쐬���A�ȉ����l
++ Slack bot の作成と、tokenの取得
++ LUIS アプリの作成、URLなどを application.properties に書き込む。
++ compute vision アプリを作成し、以下同様
 
-## �N��
+## 起動
 
-+ �ʏ�� spring boot �Ɠ��l�B
++ 通常の spring boot と同様。
 
-## cognitive service�̏���
+## cognitive serviceの準備
 
 https://azure.microsoft.com/ja-jp/try/cognitive-services/
-������ŁAAzure �A�J�E���g���쐬���āA�T�u�X�N���v�V�����L�[���쐬����B
-�T�u�X�N���v�V�����L�[�� application.properties�ɏ����Ă����B
+あたりで、Azure アカウントを作成して、サブスクリプションキーを作成する。
+サブスクリプションキーを application.propertiesに書いておく。
 
-API document �� [����](https://docs.microsoft.com/ja-jp/azure/cognitive-services/)������B
+API document は [ここ](https://docs.microsoft.com/ja-jp/azure/cognitive-services/)を見る。
 
 ## LUIS 
 
-[����](https://www.luis.ai/) ����X�^�[�g�B
-�K���ɃA�v�����쐬���A Intent������������Ă����B
-Intent �쐬��A�w�K���s���A�v�������J���ď��������B
-���s�ɂ́A�L�[��app-id ���K�v�Ȃ̂ōT���Ă����B
+[ここ](https://www.luis.ai/) からスタート。
+適当にアプリを作成し、 Intentをいくつか作っておく。
+Intent 作成後、学習を行いアプリを公開して準備完了。
+実行には、キーとapp-id が必要なので控えておく。
 
 ## LICENSE
 

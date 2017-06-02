@@ -11,61 +11,61 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 
-/** Computer vision OCR ‚Æ‚ÌÚ‘±‚ğs‚¤Retrofit Interface‚Å‚·B */
+/** Computer vision OCR ã¨ã®æ¥ç¶šã‚’è¡Œã†Retrofit Interfaceã§ã™ã€‚ */
 public interface OCR {
-	  @POST("ocr") // ƒx[ƒXURL‚©‚ç‚Ì‘Š‘ÎƒpƒX
-	  @Headers({"Content-type: application/octet-stream", "Accept: application/json"}) //ŒÅ’èƒwƒbƒ_
+	  @POST("ocr") // ãƒ™ãƒ¼ã‚¹URLã‹ã‚‰ã®ç›¸å¯¾ãƒ‘ã‚¹
+	  @Headers({"Content-type: application/octet-stream", "Accept: application/json"}) //å›ºå®šãƒ˜ãƒƒãƒ€
 	  Call<OCRResult> recognizeText(
-			  @Header("Ocp-Apim-Subscription-Key")String subscrption, // “®“Iƒwƒbƒ_,ƒL[
-			  @Body RequestBody binaryImage); //ƒŠƒNƒGƒXƒgƒ{ƒfƒBB
+			  @Header("Ocp-Apim-Subscription-Key")String subscrption, // å‹•çš„ãƒ˜ãƒƒãƒ€,ã‚­ãƒ¼
+			  @Body RequestBody binaryImage); //ãƒªã‚¯ã‚¨ã‚¹ãƒˆãƒœãƒ‡ã‚£ã€‚
 	  
 	  /** 
-	   * OCRŒ‹‰Ê.
+	   * OCRçµæœ.
 	   * 
-	   * ƒeƒLƒXƒg‚ğ”»’è‚µ‚½—Ìˆæ‚Ìî•ñ‚ªA‘å‚«‚¢—Ìˆæ(region)->1s’PˆÊ‚Ì—Ìˆæ(line)->’PŒê’PˆÊ(word)‚Ì—Ìˆæ ‚ÅƒlƒXƒg‚µ‚Ä‚¢‚éB
-	   * ‚±‚ÌŒ‹‰Ê‚ğg—p‚µ‚ÄA‰æ‘œ“à‚Ì‚Ç‚±‚ªƒeƒLƒXƒg‚È‚Ì‚©‚ğ¦‚·‚±‚Æ‚ª‚Å‚«‚é‚ªA
-	   * ‚»‚ê‚ÍŒÄ‚Ño‚µ‘¤‚Å‰æ‘œ‰ÁH‚·‚é•K—v‚ª‚ ‚éB
+	   * ãƒ†ã‚­ã‚¹ãƒˆã‚’åˆ¤å®šã—ãŸé ˜åŸŸã®æƒ…å ±ãŒã€å¤§ãã„é ˜åŸŸ(region)->1è¡Œå˜ä½ã®é ˜åŸŸ(line)->å˜èªå˜ä½(word)ã®é ˜åŸŸ ã§ãƒã‚¹ãƒˆã—ã¦ã„ã‚‹ã€‚
+	   * ã“ã®çµæœã‚’ä½¿ç”¨ã—ã¦ã€ç”»åƒå†…ã®ã©ã“ãŒãƒ†ã‚­ã‚¹ãƒˆãªã®ã‹ã‚’ç¤ºã™ã“ã¨ãŒã§ãã‚‹ãŒã€
+	   * ãã‚Œã¯å‘¼ã³å‡ºã—å´ã§ç”»åƒåŠ å·¥ã™ã‚‹å¿…è¦ãŒã‚ã‚‹ã€‚
 	   */
 	  public static class OCRResult {
-		  /** Œ¾Œê */
+		  /** è¨€èª */
 		  public String language; 
 
-		  /** ƒeƒLƒXƒg‚ÌŒX‚«*/
+		  /** ãƒ†ã‚­ã‚¹ãƒˆã®å‚¾ã*/
 		  public double textAngle;
-		  /** Œü‚« */
+		  /** å‘ã */
 		  public String orientation;
 
-		  /** ƒeƒLƒXƒg‚Ì”»’è—Ìˆæ */
+		  /** ãƒ†ã‚­ã‚¹ãƒˆã®åˆ¤å®šé ˜åŸŸ */
 		  public List<Region> regions = new ArrayList<>();
 		  @Override
 		  public String toString(){return regions.stream().map(Region::toString).collect(Collectors.joining());}
 	  }
-	  /** —Ìˆæ */
+	  /** é ˜åŸŸ */
 	  public static class Region{
-		  /** ƒeƒLƒXƒg‚ğ”»’è‚µ‚½lŠpŒ`—Ìˆæ‚É‚Â‚¢‚Ä x, y, •,‚‚³ ‚Ì‡‚Å“ü‚Á‚Ä‚¢‚éB */
+		  /** ãƒ†ã‚­ã‚¹ãƒˆã‚’åˆ¤å®šã—ãŸå››è§’å½¢é ˜åŸŸã«ã¤ã„ã¦ x, y, å¹…,é«˜ã• ã®é †ã§å…¥ã£ã¦ã„ã‚‹ã€‚ */
 		  public String boundingBox;
-		  /** —Ìˆæ“à‚Ìs’PˆÊ‚Ì×•ª‰»‚µ‚½—Ìˆæ*/
+		  /** é ˜åŸŸå†…ã®è¡Œå˜ä½ã®ç´°åˆ†åŒ–ã—ãŸé ˜åŸŸ*/
 		  public List<Line> lines = new ArrayList<>();
 		  @Override
 		  public String toString(){return lines.stream().map(Line::toString).collect(Collectors.joining());}
 
 	  }
-	  /** s */
+	  /** è¡Œ */
 	  public static class Line{
-		  /** ƒeƒLƒXƒg‚ğ”»’è‚µ‚½lŠpŒ`—Ìˆæ‚É‚Â‚¢‚Ä x, y, •,‚‚³ ‚Ì‡‚Å“ü‚Á‚Ä‚¢‚éB */
+		  /** ãƒ†ã‚­ã‚¹ãƒˆã‚’åˆ¤å®šã—ãŸå››è§’å½¢é ˜åŸŸã«ã¤ã„ã¦ x, y, å¹…,é«˜ã• ã®é †ã§å…¥ã£ã¦ã„ã‚‹ã€‚ */
 		  public String boundingBox;
-		  /** ’PŒê—Ìˆæ‚Ìˆê—— */
+		  /** å˜èªé ˜åŸŸã®ä¸€è¦§ */
 		  public List<Word> words = new ArrayList<>();
 
 		  @Override
 		  public String toString(){return words.stream().map(Word::toString).collect(Collectors.joining());}
 	  }
-	  /** ’PŒê */
+	  /** å˜èª */
 	  public static class Word{
 
-		  /** ’PŒê‚ğ”»’è‚µ‚½lŠpŒ`—Ìˆæ‚É‚Â‚¢‚Ä x, y, •,‚‚³ ‚Ì‡‚Å“ü‚Á‚Ä‚¢‚éB */
+		  /** å˜èªã‚’åˆ¤å®šã—ãŸå››è§’å½¢é ˜åŸŸã«ã¤ã„ã¦ x, y, å¹…,é«˜ã• ã®é †ã§å…¥ã£ã¦ã„ã‚‹ã€‚ */
 		  public String boundingBox;
-		  /** ’PŒê */
+		  /** å˜èª */
 		  public String text;
 
 		  @Override 
